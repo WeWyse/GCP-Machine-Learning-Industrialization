@@ -1,0 +1,9 @@
+3_sentiment_analysis/data
+3_sentiment_analysis/keras_saved_model.h5
+3_sentiment_analysis/processor_state.pkl
+3_sentiment_analysis/history.pkl
+3_sentiment_analysis/.ipynb_checkpoints/model_prediction-checkpoint.py
+3_sentiment_analysis/.ipynb_checkpoints/preprocess-checkpoint.py
+3_sentiment_analysis/.ipynb_checkpoints/training_and_serving-checkpoint.ipynb
+3_sentiment_analysis/__pycache__/model_prediction.cpython-37.pyc
+3_sentiment_analysis/__pycache__/preprocess.cpython-37.pyc

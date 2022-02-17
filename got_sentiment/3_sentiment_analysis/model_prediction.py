@@ -32,7 +32,7 @@ class CustomModelPrediction(object):
     import tensorflow.keras as keras
     
     model = keras.models.load_model(
-      os.path.join(model_dir,'keras_saved_model.h5'))
+      os.path.join(model_dir,'saved_model.pb'))
     
     # I know, pickle is bad and I should feel bad
     with open(os.path.join(model_dir, 'processor_state.pkl'), 'rb') as f:

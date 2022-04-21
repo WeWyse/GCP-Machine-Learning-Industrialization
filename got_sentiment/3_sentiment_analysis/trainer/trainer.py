@@ -20,10 +20,10 @@ VOCAB_SIZE = 25000  # Limit on the number vocabulary size used for tokenization
 MAX_SEQUENCE_LENGTH = 50  # Sentences will be truncated/padded to this length
 
 def read_preprocess_data(uri):
-    input_data = pd.read_csv(uri+'/input.csv',encoding="latin1", header=None)
-    label = pd.read_csv(uri+'/label.csv',encoding="latin1", header=None)
-    vectorized_input = pd.read_csv(uri+'/vectorized_input.csv',encoding="latin1", header=None)
-    embedding_matrix = pd.read_csv(uri+'/embedding_matrix.csv',encoding="latin1", header=None)
+    input_data = pd.read_csv(uri+'/input.csv',encoding="latin1")
+    label = pd.read_csv(uri+'/label.csv',encoding="latin1", header=None).to_numpy()
+    vectorized_input = pd.read_csv(uri+'/vectorized_input.csv',encoding="latin1", header=None).to_numpy()
+    embedding_matrix = pd.read_csv(uri+'/embedding_matrix.csv',encoding="latin1", header=None).to_numpy()
 
     return input_data,label,vectorized_input,embedding_matrix
 
@@ -89,7 +89,7 @@ def train_evaluate_explain_model(hparams):
     KERNEL_SIZES=[2,5,8]
 
 
-    input_data,label,vectorized_input,label,embedding_matrix = read_preprocess_data(hparams['preprocess-data-dir'])
+    input_data,label,vectorized_input,embedding_matrix = read_preprocess_data(hparams['preprocess-data-dir'])
     y_train,y_test,train_vectorized,eval_vectorized = split_input (vectorized_input,label)
 
 

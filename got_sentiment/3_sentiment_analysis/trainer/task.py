@@ -1,5 +1,6 @@
 import os
 import argparse
+import json
 
 import trainer
 
@@ -22,7 +23,16 @@ if __name__ == '__main__':
     parser.add_argument('--batch-size', dest='batch-size', default=128, type=int, help='Number of examples during each training iteration.')
     parser.add_argument('--n-checkpoints', dest='n-checkpoints', default=10, type=int, help='Number of model checkpoints to save during training.')
 
+    parser.add_argument('--load_json',dest='-load_json',default='config.json',
+                    help='Load settings from file in json format. Command line options override values in file.')
+
     args = parser.parse_args()
+    if args.load_json:
+        with open(args.load_json, 'rt') as f:
+            t_args = argparse.Namespace()
+            t_args.__dict__.update(json.load(f))
+            args = parser.parse_args(namespace=t_args)
+
     hparams = args.__dict__
 
     trainer.train_evaluate_explain_model(hparams)

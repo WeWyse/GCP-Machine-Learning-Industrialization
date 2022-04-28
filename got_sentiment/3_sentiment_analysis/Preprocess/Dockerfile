@@ -1,13 +1,13 @@
-FROM public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/jupyter-tensorflow-cuda-full:v1.4
+FROM python:3.7-slim
 
 USER root
 
 WORKDIR /Preprocess
 
-COPY preprocess.py ./Preprocess
-COPY config.json ./Preprocess
-COPY run.py ./Preprocess
-COPY requirements.txt ./Preprocess
+COPY preprocess.py ./preprocess.py
+COPY config.json ./config.json
+COPY run.py ./run.py
+COPY requirements.txt ./requirements.txt
 
 RUN pip3 install -r requirements.txt
 

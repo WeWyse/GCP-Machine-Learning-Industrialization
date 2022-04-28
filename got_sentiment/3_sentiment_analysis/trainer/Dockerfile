@@ -4,10 +4,7 @@ USER root
 
 WORKDIR /trainer
 
-COPY task.py .
-COPY config.json .
-COPY trainer.py .
-COPY requirements.txt .
+COPY . .
 
 RUN pip3 install -r requirements.txt
 

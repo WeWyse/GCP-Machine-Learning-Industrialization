@@ -4,10 +4,7 @@ USER root
 
 WORKDIR /Preprocess
 
-COPY preprocess.py ./preprocess.py
-COPY config.json ./config.json
-COPY run.py ./run.py
-COPY requirements.txt ./requirements.txt
+COPY . .
 
 RUN pip3 install -r requirements.txt
 

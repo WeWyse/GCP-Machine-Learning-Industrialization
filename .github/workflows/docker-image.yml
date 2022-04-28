@@ -31,7 +31,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./got_sentiment/3_sentiment_analysis/trainer/Dockerfile
+          file: ./got_sentiment/3_sentiment_analysis/Preprocess/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/preprocess:latest
         

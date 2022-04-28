@@ -33,6 +33,6 @@ jobs:
           context: .
           file: ./got_sentiment/3_sentiment_analysis/Preprocess/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/preprocess:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gcp-project:latest
         
 

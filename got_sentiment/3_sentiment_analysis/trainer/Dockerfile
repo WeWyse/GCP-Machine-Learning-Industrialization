@@ -5,6 +5,7 @@ USER root
 WORKDIR /trainer
 
 COPY task.py .
+COPY config.json .
 COPY trainer.py .
 COPY requirements.txt .
 

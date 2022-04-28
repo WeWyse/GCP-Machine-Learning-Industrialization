@@ -4,7 +4,8 @@ USER root
 
 WORKDIR /Preprocess
 
-COPY Preprocess.py .
+COPY preprocess.py .
+COPY config.json .
 COPY run.py .
 COPY requirements.txt .
 

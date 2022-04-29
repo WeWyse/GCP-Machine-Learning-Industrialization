@@ -30,7 +30,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ./got_sentiment/3_sentiment_analysis/Preprocess/
           file: ./got_sentiment/3_sentiment_analysis/Preprocess/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gcp-project:latest

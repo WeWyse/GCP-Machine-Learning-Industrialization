@@ -113,6 +113,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     # Vertex custom container training args. These are set by Vertex AI during training but can also be overwritten.
     parser.add_argument('--model-dir', dest='model-dir', type=str, help='Model dir.')
+    parser.add_argument('--bucket', dest='bucket',
+                        default="'rare-result-248415-tweet-sentiment-analysis'", type=str, help='bucket name.')
     parser.add_argument('--preprocess-data-dir', dest='preprocess-data-dir',
                         default="", type=str, help="dirototory where to save preprocess data ")
     parser.add_argument('--input-data-uri', dest='input-data-uri', type=str,

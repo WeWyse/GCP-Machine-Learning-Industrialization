@@ -112,18 +112,14 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     # Vertex custom container training args. These are set by Vertex AI during training but can also be overwritten.
-    parser.add_argument('--model-dir', dest='model-dir',
-                        default=os.environ['AIP_MODEL_DIR'], type=str, help='Model dir.')
+    parser.add_argument('--model-dir', dest='model-dir', type=str, help='Model dir.')
     parser.add_argument('--preprocess-data-dir', dest='preprocess-data-dir',
                         default="", type=str, help="dirototory where to save preprocess data ")
-    parser.add_argument('--input-data-uri', dest='input-data-uri',
-                        default=os.environ['AIP_TRAINING_DATA_URI'], type=str,
+    parser.add_argument('--input-data-uri', dest='input-data-uri', type=str,
                         help='Training data GCS or BQ URI set during Vertex AI training.')
-    parser.add_argument('--uri_data', dest='validation-data-uri',
-                        default=os.environ['AIP_VALIDATION_DATA_URI'], type=str,
+    parser.add_argument('--uri_data', dest='validation-data-uri', type=str,
                         help='embedding data GCS or BQ URI set during Vertex AI training.')
-    parser.add_argument('--temp-dir', dest='temp-dir',
-                        default=os.environ['AIP_TEST_DATA_URI'], type=str,
+    parser.add_argument('--temp-dir', dest='temp-dir', type=str,
                         help='Temp dir set during Vertex AI training.')
 
     parser.add_argument('--load_json', dest='-load_json', default='config.json',

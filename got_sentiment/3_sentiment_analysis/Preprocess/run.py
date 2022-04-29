@@ -72,7 +72,7 @@ def preprocess_input(input, bucket, uri_data):
     client = Client()
     bucket = client.get_bucket(bucket)
     logging.debug('Dumping processor pickle')
-    blob = bucket.get_blob(uri_data)
+    blob = bucket.blob(uri_data)
     processor_dump = pickle.dumps(processor)
     blob.upload_from_string(processor_dump)
 

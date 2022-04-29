@@ -8,4 +8,4 @@ COPY . .
 
 RUN pip3 install -r requirements.txt
 
-ENTRYPOINT [ "python", "task.py --load_json config.json" ]
+ENTRYPOINT [ "python", "task.py --load_json confg.json" ]

@@ -15,6 +15,8 @@ google-pasta==0.2.0
 google-resumable-media==1.2.0
 googleapis-common-protos==1.53.0
 grpcio
+keras==2.6.0
+Keras-Preprocessing==1.1.2
 numpy
 pandas
 fsspec

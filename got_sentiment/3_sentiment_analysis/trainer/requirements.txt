@@ -22,6 +22,7 @@ numpy
 pandas
 fsspec
 gcsfs
+explainable-ai-sdk
 tensorboard==2.8.0
 tensorboard-data-server==0.6.1
 tensorboard-plugin-wit==1.8.0

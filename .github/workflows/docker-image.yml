@@ -33,6 +33,14 @@ jobs:
           context: ./got_sentiment/3_sentiment_analysis/Preprocess/
           file: ./got_sentiment/3_sentiment_analysis/Preprocess/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gcp-project:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gcp-project-preprocess:latest
+    -
+        name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: ./got_sentiment/3_sentiment_analysis/trainer/
+          file: ./got_sentiment/3_sentiment_analysis/trainer/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gcp-project-trainer:latest
         
 

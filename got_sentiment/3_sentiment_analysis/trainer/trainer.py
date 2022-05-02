@@ -1,13 +1,8 @@
-import os
 import logging
 import tempfile
 import tensorflow as tf
 import pandas as pd
-import numpy as np
-from explainable_ai_sdk.metadata.tf.v1 import KerasGraphMetadataBuilder
-
 from sklearn.model_selection import train_test_split
-from google.cloud.storage import Client
 
 sentiment_mapping={
     0:"negative",

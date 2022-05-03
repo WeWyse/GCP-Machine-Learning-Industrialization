@@ -127,5 +127,3 @@ def train_evaluate_explain_model(hparams):
     # Export Keras model in TensorFlow SavedModel format.
     tf.saved_model.save(model,(hparams['model-dir']))
 
-
-    return history

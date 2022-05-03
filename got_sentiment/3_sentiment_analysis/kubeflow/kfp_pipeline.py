@@ -1,8 +1,7 @@
 from kfp import dsl
 
 import kfp
-client = kfp.Client(host='https://7d8375db7128e32b-dot-europe-west1.pipelines.googleusercontent.com')
-
+client = kfp.Client(host='https://25a7464ff82674da-dot-europe-west1.pipelines.googleusercontent.com')
 def preprocess_op():
 
     return dsl.ContainerOp(

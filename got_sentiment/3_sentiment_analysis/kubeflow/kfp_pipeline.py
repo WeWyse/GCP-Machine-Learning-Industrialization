@@ -9,9 +9,9 @@ def preprocess_op():
 
     return dsl.ContainerOp(
         name='Preprocess Data',
-        image='abouzid/gcp-project:latest',
+        image='abouzid/gcp-project-preprocess:latest',
         arguments=[],
-        file_outputs={'preprocessed-dir': '/Preprocess/preprocess-data-dir.txt'}
+        file_outputs={'preprocessed-dir': 'preprocess-data-dir.txt'}
     )
 def train_op(preprocess_data_dir : str):
 

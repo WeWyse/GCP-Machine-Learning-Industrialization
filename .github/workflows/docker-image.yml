@@ -30,6 +30,15 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
+          context: ./got_sentiment/3_sentiment_analysis/Test_model/
+          file: ./got_sentiment/3_sentiment_analysis/Test_model/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gcp-project-test-model:latest
+          
+    -
+        name: Build and push
+        uses: docker/build-push-action@v2
+        with:
           context: ./got_sentiment/3_sentiment_analysis/Preprocess/
           file: ./got_sentiment/3_sentiment_analysis/Preprocess/Dockerfile
           push: true
@@ -43,13 +52,6 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gcp-project-trainer:latest
           
-    -
-        name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: ./got_sentiment/3_sentiment_analysis/Test_model/
-          file: ./got_sentiment/3_sentiment_analysis/Test_model/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gcp-project-test-model:latest
+   
         
 

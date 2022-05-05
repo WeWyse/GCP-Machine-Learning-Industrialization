@@ -20,7 +20,7 @@ def evaluate_model(hparams):
     """
 
     y_test, x_test = read_test_data(hparams['preprocess-data-dir'])
-    model = tf.keras.models.load_model(hparams['model-dir'])
+    model = tf.keras.models.load_model(hparams['model-dir'], custom_objects={'tf': tf})
     [loss ,acc ]=model.evaluate(x_test, y_test )
 
     if acc > hparams['performance-threshold']:

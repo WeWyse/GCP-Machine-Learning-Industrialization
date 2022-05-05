@@ -25,4 +25,4 @@ if __name__ == '__main__':
 
     hparams = args.__dict__
 
-    test_model.train_evaluate_explain_model(hparams)
+    test_model.evaluate_model(hparams)

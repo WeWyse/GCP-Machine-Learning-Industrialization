@@ -1,9 +1,7 @@
 {"bucket": "rare-result-248415-tweet-sentiment-analysis",
   "uri_data": "Data/embeddings/glove.twitter.27B.50d.txt",
-  "temp-dir": "Data/embeddings/",
   "filters": 64,
   "dropout": 0.5,
   "n-checkpoints": 2,
   "batch-size": 128,
-  "model-dir" : "gs://rare-result-248415-tweet-sentiment-analysis/model",
-  "preprocess-data-dir" : "gs://rare-result-248415-tweet-sentiment-analysis/Data/preprocess_data"}
+  "model-dir" : "gs://rare-result-248415-tweet-sentiment-analysis/model"}

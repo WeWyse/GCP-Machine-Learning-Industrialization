@@ -3,6 +3,7 @@ import tempfile
 import tensorflow as tf
 import pandas as pd
 from sklearn.model_selection import train_test_split
+import datetime
 
 sentiment_mapping={
     0:"negative",
@@ -15,14 +16,13 @@ VOCAB_SIZE = 25000  # Limit on the number vocabulary size used for tokenization
 MAX_SEQUENCE_LENGTH = 50  # Sentences will be truncated/padded to this length
 
 def read_preprocess_data(uri):
-    input_data = pd.read_csv(uri+'/input.csv',encoding="latin1")
-    label = pd.read_csv(uri+'/label.csv',encoding="latin1", header=None).to_numpy()
-    vectorized_input = pd.read_csv(uri+'/vectorized_input.csv',encoding="latin1", header=None).to_numpy()
+    x_train = pd.read_csv(uri+'/x_train.csv',encoding="latin1",header=None)
+    y_train = pd.read_csv(uri+'/y_train.csv',encoding="latin1", header=None).to_numpy()
     embedding_matrix = pd.read_csv(uri+'/embedding_matrix.csv',encoding="latin1", header=None).to_numpy()
 
-    return input_data,label,vectorized_input,embedding_matrix
+    return x_train,y_train,embedding_matrix
 
-def split_input (sents,labels,test_size=0.2):
+def split_input (sents,labels,test_size=0.1):
 
     # Train and test split
     X_train, X_test, y_train, y_test = train_test_split(sents, labels, test_size=test_size)
@@ -84,8 +84,8 @@ def train_evaluate_explain_model(hparams):
     KERNEL_SIZES=[2,5,8]
 
 
-    input_data,label,vectorized_input,embedding_matrix = read_preprocess_data(hparams['preprocess-data-dir'])
-    y_train,y_test,train_vectorized,eval_vectorized = split_input (vectorized_input,label)
+    x_train_all,y_train_all,embedding_matrix = read_preprocess_data(hparams['preprocess-data-dir'])
+    y_train,y_validation,train_vectorized,validation_vectorized = split_input (x_train_all,y_train_all)
 
 
 
@@ -102,7 +102,7 @@ def train_evaluate_explain_model(hparams):
         y_train,
         epochs=hparams['n-checkpoints'],
         batch_size=hparams['batch-size'],
-        validation_data=(eval_vectorized, y_test),
+        validation_data=(validation_vectorized, y_validation),
         verbose=2,
         callbacks=[
             tf.keras.callbacks.ReduceLROnPlateau(
@@ -123,7 +123,7 @@ def train_evaluate_explain_model(hparams):
 
     # Create a temp directory to save intermediate TF SavedModel prior to Explainable metadata creation.
     tmpdir = tempfile.mkdtemp()
-
+    nowTime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
     # Export Keras model in TensorFlow SavedModel format.
-    tf.saved_model.save(model,(hparams['model-dir']))
+    tf.saved_model.save(model,(hparams['model-dir']+'-'+nowTime))
 

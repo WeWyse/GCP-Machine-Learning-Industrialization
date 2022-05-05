@@ -7,9 +7,6 @@ def preprocess_op():
         image='abouzid /gcp-project:latest',
         arguments=[],
         file_outputs={
-            'x_train': '/app/x_train.npy',
-            'x_test': '/app/x_test.npy',
-            'y_train': '/app/y_train.npy',
-            'y_test': '/app/y_test.npy',
+            'preprocessed-dir': '/app/x_train.npy',
         }
     )

@@ -6,6 +6,8 @@ import argparse
 import logging
 import json
 import pickle
+from sklearn.model_selection import train_test_split
+import datetime
 
 from google.cloud.storage import Client
 
@@ -79,6 +81,15 @@ def preprocess_input(input, bucket, uri_data):
     return processor, train_texts_vectorized, labels
 
 
+def split_input(sents, labels, test_size=0.2):
+    # Train and test split
+    X_train, X_test, y_train, y_test = train_test_split(sents, labels, test_size=test_size)
+
+    # Create vocabulary from training corpus.
+
+    return y_train, y_test, X_train, X_test
+
+
 def run(hparams):
     logging.debug('preprocessing data Start')
     EMBEDDING_DIM = 50
@@ -92,20 +103,52 @@ def run(hparams):
                                               EMBEDDING_DIM)
     logging.debug('loading embedding done')
 
-    input_data.to_csv(hparams['preprocess-data-dir'] + '/input.csv', index=False)
-    logging.debug('saved preprocessed features data in ' + hparams['preprocess-data-dir'] + '/input.csv')
+    y_train, y_test, train_vectorized, x_test = split_input(vectorized_input, label)
+    nowTime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+    pd.DataFrame(y_train).to_csv(hparams['preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/y_train.csv',
+                                 index=False, header=False)
+    logging.debug('saved preprocessed label data in ' + hparams[
+        'preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/y_train.csv')
 
-    pd.DataFrame(label).to_csv(hparams['preprocess-data-dir'] + '/label.csv', index=False, header=False)
-    logging.debug('saved preprocessed label data in ' + hparams['preprocess-data-dir'] + '/label.csv')
+    pd.DataFrame(y_test).to_csv(hparams['preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/y_test.csv',
+                                index=False, header=False)
+    logging.debug('saved preprocessed label data in ' + hparams[
+        'preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/y_test.csv')
 
-    pd.DataFrame(vectorized_input).to_csv(hparams['preprocess-data-dir'] + '/vectorized_input.csv', index=False,
-                                          header=False)
+    pd.DataFrame(train_vectorized).to_csv(
+        hparams['preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/x_train.csv', index=False, header=False)
+    logging.debug('saved preprocessed label data in ' + hparams[
+        'preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/x_train.csv')
+
+    pd.DataFrame(x_test).to_csv(hparams['preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/x_test.csv',
+                                index=False, header=False)
+    logging.debug('saved preprocessed label data in ' + hparams[
+        'preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/x_test.csv')
+
+    input_data.to_csv(hparams['preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/input.csv', index=False)
+    logging.debug('saved preprocessed features data in ' + hparams[
+        'preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/input.csv')
+
+    pd.DataFrame(label).to_csv(hparams['preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/label.csv',
+                               index=False, header=False)
+    logging.debug('saved preprocessed label data in ' + hparams[
+        'preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/label.csv')
+
+    pd.DataFrame(vectorized_input).to_csv(
+        hparams['preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/vectorized_input.csv', index=False,
+        header=False)
     logging.debug(
-        'saved preprocessed and vectorized input data in ' + hparams['preprocess-data-dir'] + '/vectorized_input.csv')
+        'saved preprocessed and vectorized input data in ' + hparams[
+            'preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/vectorized_input.csv')
 
-    pd.DataFrame(embedding_matrix).to_csv(hparams['preprocess-data-dir'] + '/embedding_matrix.csv', index=False,
-                                          header=False)
-    logging.debug('saved embedding data in ' + hparams['preprocess-data-dir'] + '/embedding_matrix.csv')
+    pd.DataFrame(embedding_matrix).to_csv(
+        hparams['preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/embedding_matrix.csv', index=False,
+        header=False)
+    logging.debug('saved embedding data in ' + hparams[
+        'preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/embedding_matrix.csv')
+
+    ouputfile = open("preprocess-data-dir.txt", "w")
+    ouputfile.write(str(hparams['preprocess-data-dir'] + '/preprocess-data-' + nowTime))
 
 
 if __name__ == '__main__':
@@ -135,4 +178,5 @@ if __name__ == '__main__':
             args = parser.parse_args(namespace=t_args)
 
     hparams = args.__dict__
+
     run(hparams)

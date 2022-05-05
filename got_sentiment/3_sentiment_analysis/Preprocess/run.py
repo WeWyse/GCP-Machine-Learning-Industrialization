@@ -94,6 +94,7 @@ def run(hparams):
     logging.debug('preprocessing data Start')
     EMBEDDING_DIM = 50
     logging.debug('loading input data')
+    nowTime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
     input_data = read_data_uri(hparams['input-data-uri'])
     processor, vectorized_input, label = preprocess_input(input_data, hparams['bucket'], hparams['model-dir'])
     logging.debug('preprocessing input data Done')
@@ -104,7 +105,7 @@ def run(hparams):
     logging.debug('loading embedding done')
 
     y_train, y_test, train_vectorized, x_test = split_input(vectorized_input, label)
-    nowTime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+
     pd.DataFrame(y_train).to_csv(hparams['preprocess-data-dir'] + '/preprocess-data-' + nowTime + '/y_train.csv',
                                  index=False, header=False)
     logging.debug('saved preprocessed label data in ' + hparams[

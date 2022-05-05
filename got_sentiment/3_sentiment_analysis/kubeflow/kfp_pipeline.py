@@ -19,7 +19,7 @@ def train_op(preprocess_data_dir : str):
     return dsl.ContainerOp(
         name='Train Model',
         image='abouzid/gcp-project-trainer:latest',
-        arguments=['--preprocessed-dir', preprocess_data_dir],
+        arguments=['--preprocess-data-dir', preprocess_data_dir],
         file_outputs={'model-dir': '/trainer/model-dir.txt'}
     )
 def test_op(preprocess_data_dir : str , model_dir):
@@ -27,7 +27,7 @@ def test_op(preprocess_data_dir : str , model_dir):
         name='Test Model',
         image='abouzid/gcp-project-test-model:latest',
         arguments=[
-            '--preprocessed-dir', preprocess_data_dir,
+            '--preprocess-data-dir', preprocess_data_dir,
             '--model-dir', model_dir
         ],
         file_outputs={

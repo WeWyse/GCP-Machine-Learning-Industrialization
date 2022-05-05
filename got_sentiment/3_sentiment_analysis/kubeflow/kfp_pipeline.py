@@ -31,7 +31,7 @@ def test_op(file_test_data, file_model):
             '--model-dir', model_dir
         ],
         file_outputs={
-            'performance-file': '/app/output.txt'
+            'performance-file': '/test/performance-model.txt.txt'
         }
     )
 @dsl.pipeline(

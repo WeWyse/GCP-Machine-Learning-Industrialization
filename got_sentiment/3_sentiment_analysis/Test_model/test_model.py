@@ -21,8 +21,11 @@ def evaluate_model(hparams):
 
     y_test, x_test = read_test_data(hparams['preprocess-data-dir'])
     model = keras.models.load_model(hparams['model-dir'], custom_objects={'tf': tf})
-    model.evaluate(x_test, y_test)
+    [loss ,acc ]=model.evaluate(x_test, y_test )
 
-    if model.evaluate(x_test, y_test) > hparams['performance-threshold']:
+    if acc > hparams['performance-threshold']:
         nowTime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
         tf.saved_model.save(model, (hparams['model-validation-dir']) + '_' + nowTime)
+
+    ouputfile = open("performance-model.txt", "w")
+    ouputfile.write(str("loss : "+loss+"/n acc :"+acc))

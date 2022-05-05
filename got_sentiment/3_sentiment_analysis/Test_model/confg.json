@@ -1,2 +1,2 @@
 {"bucket": "rare-result-248415-tweet-sentiment-analysis",
-  "model-validation-dir" : "gs://rare-result-248415-tweet-sentiment-analysis/valid_model",}
+  "model-validation-dir" : "gs://rare-result-248415-tweet-sentiment-analysis/valid_model"}

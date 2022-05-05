@@ -1,7 +1,5 @@
-import os
 import argparse
 import json
-
 import test_model
 
 if __name__ == '__main__':

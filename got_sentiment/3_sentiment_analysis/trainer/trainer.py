@@ -125,7 +125,7 @@ def train_evaluate_explain_model(hparams):
     tmpdir = tempfile.mkdtemp()
     nowTime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
     # Export Keras model in TensorFlow SavedModel format.
-    tf.saved_model.save(model,(hparams['model-dir'] + '/model-dir-' + nowTime))
+    tf.saved_model.save(model,(hparams['model-dir'] + '/model-' + nowTime))
     ouputfile = open("model-dir.txt", "w")
-    ouputfile.write(str(hparams['model-dir'] + '/model-dir-' + nowTime))
+    ouputfile.write(str(hparams['model-dir'] + '/model-' + nowTime))
 

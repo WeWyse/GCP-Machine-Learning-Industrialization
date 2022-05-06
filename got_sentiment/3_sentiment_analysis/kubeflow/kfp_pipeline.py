@@ -3,7 +3,7 @@ from kfp import components as comp
 from kfp.components import InputPath, InputTextFile, OutputPath, OutputTextFile
 
 import kfp
-client = kfp.Client(host='https://5dc17dbced9cd06d-dot-europe-west1.pipelines.googleusercontent.com')
+client = kfp.Client(host='https://5d0e2ce599b9372d-dot-europe-west1.pipelines.googleusercontent.com')
 
 def Preprocess_op():
 

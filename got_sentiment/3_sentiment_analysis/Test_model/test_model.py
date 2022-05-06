@@ -27,4 +27,4 @@ def evaluate_model(hparams):
         tf.saved_model.save(model, (hparams['model-validation-dir']) + '_' + nowTime)
 
     ouputfile = open("performance-model.txt", "w")
-    ouputfile.write(str("loss : "+loss+"/n acc :"+acc))
+    ouputfile.write(str("loss : "+str(loss)+"/n acc :"+str(acc)))

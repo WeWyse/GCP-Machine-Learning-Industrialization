@@ -24,7 +24,7 @@ def evaluate_model(hparams):
 
     if acc > hparams['performance-threshold']:
         nowTime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
-        tf.keras.saved_model.save(model, (hparams['model-validation-dir']) + '_' + nowTime)
+        tf.saved_model.save(model, (hparams['model-validation-dir']) + '_' + nowTime)
 
     ouputfile = open("performance-model.txt", "w")
     ouputfile.write(str("loss : "+loss+"/n acc :"+acc))

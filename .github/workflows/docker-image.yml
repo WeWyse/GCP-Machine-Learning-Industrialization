@@ -4,6 +4,7 @@ on:
   push:
     branches: 
     - 'main'
+    - 'add_use_case'
   pull_request:
     branches: 
     - 'main'

@@ -1,9 +1,7 @@
 from kfp import dsl
-from kfp import components as comp
-from kfp.components import InputPath, InputTextFile, OutputPath, OutputTextFile
 
 import kfp
-client = kfp.Client(host='https://5d0e2ce599b9372d-dot-europe-west1.pipelines.googleusercontent.com')
+client = kfp.Client(host='https://4a48c7326b7bfa7e-dot-europe-west1.pipelines.googleusercontent.com') # change
 
 def Preprocess_op():
 

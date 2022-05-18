@@ -11,15 +11,15 @@ def read_test_data(uri):
     return y_test, x_test
 
 
-def valid_model(model, y_test, x_test, hparams):
+def valid_model(model, y_test, x_test, threshold , uri_save_model):
     [loss, acc] = model.evaluate(x_test, y_test)
     scores = model.predict(x_test)
     predictions = np.array([int(np.round(i)) for i in scores])
     confu_matrix = tf.math.confusion_matrix(predictions, y_test)
     std_pred = np.std(scores)
-    if acc > hparams["acc"] and std_pred > hparams["std"]:
+    if acc > threshold["acc"] and std_pred > threshold["std"]:
         nowTime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
-        tf.saved_model.save(model, (hparams['model-validation-dir']) + '_' + nowTime)
+        tf.saved_model.save(model, (uri_save_model) + '_' + nowTime)
     return loss, acc, confu_matrix, std_pred
 
 
@@ -34,7 +34,7 @@ def evaluate_model(hparams):
     y_test, x_test = read_test_data(hparams['preprocess-data-dir'])
     model = tf.keras.models.load_model(hparams['model-dir'], custom_objects={'tf': tf})
 
-    [loss, acc, confusion_matrix, std_prediction] = valid_model(model, y_test, x_test, hparams['performance-threshold'])
+    [loss, acc, confusion_matrix, std_prediction] = valid_model(model, y_test, x_test, hparams['performance-threshold'],hparams['model-validation-dir'])
 
     ouputfile = open("performance-model.txt", "w")
     ouputfile.write(str("loss : " + str(loss) + "/n acc :" + str(acc) + "/n matrix-co :" + str(confusion_matrix)

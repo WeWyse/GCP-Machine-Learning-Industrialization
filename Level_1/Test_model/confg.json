@@ -1,5 +1,5 @@
 {"bucket": "rare-result-248415-tweet-sentiment-analysis",
   "model-validation-dir" : "gs://rare-result-248415-tweet-sentiment-analysis/valid_model",
   "performance-threshold" :  {"acc":0.75,
-                              "std": 0.2}
+                              "std": 0.3}
 }

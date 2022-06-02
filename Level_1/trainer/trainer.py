@@ -5,40 +5,41 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 import datetime
 
-sentiment_mapping={
-    0:"negative",
-    2:"neutral",
-    4:"positive"
+sentiment_mapping = {
+    0: "negative",
+    2: "neutral",
+    4: "positive"
 }
 
-CLASSES = {'negative':0, 'positive': 1}  # label-to-int mapping
+CLASSES = {'negative': 0, 'positive': 1}  # label-to-int mapping
 VOCAB_SIZE = 25000  # Limit on the number vocabulary size used for tokenization
 MAX_SEQUENCE_LENGTH = 50  # Sentences will be truncated/padded to this length
 
+
 def read_preprocess_data(uri):
-    x_train = pd.read_csv(uri+'/x_train.csv',encoding="latin1",header=None)
-    y_train = pd.read_csv(uri+'/y_train.csv',encoding="latin1", header=None).to_numpy()
-    embedding_matrix = pd.read_csv(uri+'/embedding_matrix.csv',encoding="latin1", header=None).to_numpy()
+    x_train = pd.read_csv(uri + '/x_train.csv', encoding="latin1", header=None)
+    y_train = pd.read_csv(uri + '/y_train.csv', encoding="latin1", header=None).to_numpy()
+    embedding_matrix = pd.read_csv(uri + '/embedding_matrix.csv', encoding="latin1", header=None).to_numpy()
 
-    return x_train,y_train,embedding_matrix
+    return x_train, y_train, embedding_matrix
 
-def split_input (sents,labels,test_size=0.1):
 
+def split_input(sents, labels, test_size=0.1):
     # Train and test split
     X_train, X_test, y_train, y_test = train_test_split(sents, labels, test_size=test_size)
 
     # Create vocabulary from training corpus.
 
-    return y_train,y_test,X_train,X_test
+    return y_train, y_test, X_train, X_test
+
 
 def create_model(vocab_size, embedding_dim, filters, kernel_sizes, dropout_rate, pool_size, embedding_matrix):
-
     # Input layer
     model_input = tf.keras.layers.Input(shape=(MAX_SEQUENCE_LENGTH,), dtype='int32')
 
     # Embedding layer
     z = tf.keras.layers.Embedding(
-        input_dim=vocab_size+1,
+        input_dim=vocab_size + 1,
         output_dim=embedding_dim,
         input_length=MAX_SEQUENCE_LENGTH,
         weights=[embedding_matrix]
@@ -79,24 +80,21 @@ def train_evaluate_explain_model(hparams):
       history(tf.keras.callbacks.History): Keras callback that records training event history.
     """
 
-    EMBEDDING_DIM=50
-    POOL_SIZE=3
-    KERNEL_SIZES=[2,5,8]
+    EMBEDDING_DIM = 50
+    POOL_SIZE = 3
+    KERNEL_SIZES = [2, 5, 8]
 
+    x_train_all, y_train_all, embedding_matrix = read_preprocess_data(hparams['preprocess-data-dir'])
+    y_train, y_validation, train_vectorized, validation_vectorized = split_input(x_train_all, y_train_all)
 
-    x_train_all,y_train_all,embedding_matrix = read_preprocess_data(hparams['preprocess-data-dir'])
-    y_train,y_validation,train_vectorized,validation_vectorized = split_input (x_train_all,y_train_all)
-
-
-
-    model = create_model(VOCAB_SIZE, EMBEDDING_DIM, hparams['filters'], KERNEL_SIZES, hparams['dropout'],POOL_SIZE, embedding_matrix)
+    model = create_model(VOCAB_SIZE, EMBEDDING_DIM, hparams['filters'], KERNEL_SIZES, hparams['dropout'], POOL_SIZE,
+                         embedding_matrix)
     logging.info(model.summary())
     # Compile model with learning parameters.
     optimizer = tf.keras.optimizers.Nadam(lr=0.001)
     model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['acc'])
 
-
-    #keras train
+    # keras train
     history = model.fit(
         train_vectorized,
         y_train,
@@ -125,7 +123,6 @@ def train_evaluate_explain_model(hparams):
     tmpdir = tempfile.mkdtemp()
     nowTime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
     # Export Keras model in TensorFlow SavedModel format.
-    tf.saved_model.save(model,(hparams['model-dir'] + '/model-' + nowTime))
+    tf.saved_model.save(model, (hparams['model-dir'] + '/model-' + nowTime))
     ouputfile = open("model-dir.txt", "w")
     ouputfile.write(str(hparams['model-dir'] + '/model-' + nowTime))
-

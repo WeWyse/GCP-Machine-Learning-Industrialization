@@ -22,7 +22,7 @@ sentiment_mapping = {
 }
 
 
-def read_data_uri(uri):
+def read_data_uri(uri, start_date, end_date):
     data_input = pd.read_csv(uri, encoding="latin1", header=None) \
         .rename(columns={
         0: "sentiment",
@@ -32,6 +32,11 @@ def read_data_uri(uri):
         4: "username",
         5: "text"
     })[["sentiment", "text"]]
+    if end_date != '' and start_date != '':
+        data_input['time'] = data_input['time'].apply(
+            lambda x: datetime.datetime.strptime(x, "%a %b %d %H:%M:%S PDT %Y"))
+        data_input = data_input[(data_input['time'].dt.strftime('%Y-%m-%d') >= start_date)
+                                & (data_input['time'].dt.strftime('%Y-%m-%d') <= end_date)]
     data_input["sentiment_label"] = data_input["sentiment"].map(sentiment_mapping)
     return data_input
 
@@ -95,7 +100,7 @@ def run(hparams):
     EMBEDDING_DIM = 50
     logging.debug('loading input data')
     nowTime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
-    input_data = read_data_uri(hparams['input-data-uri'])
+    input_data = read_data_uri(hparams['input-data-uri'],hparams['input-start-date'],hparams['input-end-date'])
     processor, vectorized_input, label = preprocess_input(input_data, hparams['bucket'], hparams['model-dir'])
     logging.debug('preprocessing input data Done')
 
@@ -163,6 +168,13 @@ if __name__ == '__main__':
                         default="", type=str, help="dirototory where to save preprocess data ")
     parser.add_argument('--input-data-uri', dest='input-data-uri', type=str,
                         help='Training data GCS or BQ URI set during Vertex AI training.')
+
+    parser.add_argument('--input-start-date', dest='input-start-date', type=str,
+                        help='The start date for training tweet.')
+
+    parser.add_argument('--input-end-date', dest='input-end-date', type=str,
+                        help='The end date for training tweet.')
+
     parser.add_argument('--uri_data', dest='validation-data-uri', type=str,
                         help='embedding data GCS or BQ URI set during Vertex AI training.')
     parser.add_argument('--temp-dir', dest='temp-dir', type=str,

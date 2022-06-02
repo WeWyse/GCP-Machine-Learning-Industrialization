@@ -1,6 +1,7 @@
 from tweepy import StreamingClient, StreamRule
 from google.cloud import pubsub_v1
 import tweepy
+import datetime
 import json
 import yaml
 
@@ -9,7 +10,7 @@ with open("config.yml", "r") as ymlfile:
     PROJECT_ID = cfg['project_id']
     TOPIC_NAME = cfg['topic_name']
     BEARER_TOKEN = cfg['bearer_token']
-    HASHTAG = cfg['hashtag']
+    HASHTAG = ['#macron']
 
 # Pub/Sub topic configuration
 publisher = pubsub_v1.PublisherClient()
@@ -41,7 +42,7 @@ def reformat_tweet(tweet):
         "favorite_co": tweet["favorite_count"] if "favorite_count" in tweet else 0,
         "retweet_co": tweet["retweet_count"] if "retweet_count" in tweet else 0,
         "user_id": tweet['data']["author_id"],
-        "created": tweet["created_at"].strftme( "%m/%d/%Y, %H:%M:%S")
+        "created": tweet["created_at"].strftime( "%m/%d/%Y, %H:%M:%S")
     }
     if "extended_tweet" in tweet:
         processed_doc["text"] = tweet["extended_tweet"]["full_text"]

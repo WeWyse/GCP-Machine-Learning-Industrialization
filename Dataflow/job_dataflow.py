@@ -13,9 +13,9 @@ from googleapiclient import discovery
 
 cmle_api = None
 PROJECT_ID = 'sound-splicer-351114'
-STAGING_LOCATION = 'gs://twitter-pipeline-new/staging'
-TEMP_LOCATION = 'gs://twitter-pipeline-new/temp'
-REGION = 'europe-west1'
+STAGING_LOCATION = 'gs://twitter-listener/staging'
+TEMP_LOCATION = 'gs://twitter-listener/temp'
+REGION = 'europe-west9'
 TABLE = 'twitter_posts'
 DATASET = 'TWITTER'
 

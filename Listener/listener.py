@@ -28,7 +28,7 @@ def write_to_pubsub(data):
                 "text": data["text"],
                 "user_id": data["user_id"],
                 "id": data["id"],
-                "created_at": data["created_at"]
+                "created_at": data["created"]
             }).encode("utf-8"), tweet_id=str(data["id"]).encode("utf-8"))
     except Exception as e:
         raise

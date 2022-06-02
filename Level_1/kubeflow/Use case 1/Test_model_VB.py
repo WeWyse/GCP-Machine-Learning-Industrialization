@@ -27,7 +27,7 @@ def Test_op(preprocess_data_dir : str , model_dir):
 )
 def Use_case_test_VB():
     _preprocess_op = Preprocess_op()
-    _test_op = Test_op(_preprocess_op.outputs['preprocessed-dir'],"gs://rare-result-248415-tweet-sentiment-analysis/model/model-2022-06-01-13-53-38"
+    _test_op = Test_op(_preprocess_op.outputs['preprocessed-dir'],"gs://rare-result-248415-tweet-sentiment-analysis/model/model-2022-06-02-13-55-12"
                        ).after(_preprocess_op)
     _preprocess_op.execution_options.caching_strategy.max_cache_staleness = "P0D"
     _test_op.execution_options.caching_strategy.max_cache_staleness = "P0D"

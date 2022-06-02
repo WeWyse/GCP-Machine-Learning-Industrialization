@@ -18,6 +18,8 @@ TEMP_LOCATION = 'gs://twitter-listener/temp'
 REGION = 'europe-west9'
 TABLE = 'twitter_posts'
 DATASET = 'TWITTER'
+MODEL_NAME = 'tweet_sentiment_classifier_1'
+MODEL_URL = 'projects/%s/models/%s' % (PROJECT_ID, MODEL_NAME)
 SUBSCRIPTION = 'twitter_topic-sub'
 
 
@@ -36,8 +38,13 @@ def estimate_cmle(instances):
     Returns:
         float: estimated values
     """
-    logging.info("not making request to the ML api, return 0 values instead")
-    values = [0 for instance in instances]
+    init_api()
+    request_data = {'instances': instances}
+    logging.info("making request to the ML api")
+    # Call the model
+    response = cmle_api.projects().predict(body=request_data, name=MODEL_URL).execute()
+    # Read out the scores
+    values = [item["score"] for item in response['predictions']]
 
     return values
 

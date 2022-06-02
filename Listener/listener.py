@@ -2,57 +2,54 @@ from tweepy import StreamingClient, StreamRule
 from google.cloud import pubsub_v1
 import tweepy
 import json
+import yaml
+
+with open("config.yml", "r") as ymlfile:
+    cfg = yaml.load(ymlfile)
+    PROJECT_ID = cfg['project_id']
+    TOPIC_NAME = cfg['topic_name']
+    BEARER_TOKEN = cfg['bearer_token']
+    HASHTAG = ['#macron']
 
 # Pub/Sub topic configuration
-publisher 	= pubsub_v1.PublisherClient()
-topic_path 	= publisher.topic_path("rare-result-248415","Tweets_topic_test")
-
-# Authenticate to the API
-bearer_token = "AAAAAAAAAAAAAAAAAAAAAA2TcQEAAAAAYqjaUkY1vN4803JuUXedqMSypSc%3Dm6pjmutLIY2XRRqmtMCMMnPbskVQkjHDM2TBPE4ff9WlAtQQgt"
-
-
-
-# Define the list of terms to listen to
-lst_hashtags = ["#macron"]
+publisher = pubsub_v1.PublisherClient()
+topic_path = publisher.topic_path(PROJECT_ID, TOPIC_NAME)
+# Authenticate to the Twitter API
+bearer_token = BEARER_TOKEN
+# Define the list of terms to listen to on Twitter
+lst_hashtags = HASHTAG
 
 # Method to push messages to pub/sub
 def write_to_pubsub(data):
     try:
         if data["lang"] == "en":
             publisher.publish(topic_path, data=json.dumps({
-                "text"	    : 	data["text"],
-                "user_id"   : 	data["user_id"],
-                "id"        : 	data["id"],
-                "created_at": 	data["created_at"]
+                "text": data["text"],
+                "user_id": data["user_id"],
+                "id": data["id"],
+                "created_at": data["created"]
             }).encode("utf-8"), tweet_id=str(data["id"]).encode("utf-8"))
     except Exception as e:
         raise
 
 # Method to format a tweet from tweepy
 def reformat_tweet(tweet):
-    x = tweet
-
     processed_doc = {
-        "id"					: x["id"],
-        "lang"					: x["lang"],
-        "retweeted_id"			: x["retweeted_status"]["id"] if "retweeted_status" in x else None,
-        "favorite_count" 		: x["favorite_count"] if "favorite_count" in x else 0,
-        "retweet_count"			: x["retweet_count"] if "retweet_count" in x else 0,
-        "user_id"				: x['data']["author_id"],
-        "created_at"			: x["created_at"].strftime( "%m/%d/%Y, %H:%M:%S")
+        "id": tweet["id"],
+        "lang": tweet["lang"],
+        "retweeted": tweet["retweeted_status"]["id"] if "retweeted_status" in tweet else None,
+        "favorite_co": tweet["favorite_count"] if "favorite_count" in tweet else 0,
+        "retweet_co": tweet["retweet_count"] if "retweet_count" in tweet else 0,
+        "user_id": tweet['data']["author_id"],
+        "created": tweet["created_at"].strftme( "%m/%d/%Y, %H:%M:%S")
     }
-
-
-    if "extended_tweet" in x:
-        processed_doc["text"] 			= x["extended_tweet"]["full_text"]
-    elif "full_text" in x:
-        processed_doc["text"] 			= x["full_text"]
+    if "extended_tweet" in tweet:
+        processed_doc["text"] = tweet["extended_tweet"]["full_text"]
+    elif "full_text" in tweet:
+        processed_doc["text"] = tweet["full_text"]
     else:
-        processed_doc["text"]			= x["text"]
-
+        processed_doc["text"] = tweet["text"]
     return processed_doc
-
-
 
 # Custom listener class
 class TweetPrinterV2(tweepy.StreamingClient):
@@ -63,7 +60,6 @@ class TweetPrinterV2(tweepy.StreamingClient):
         print("-"*50)
 
 # Start listening
-
 printer = TweetPrinterV2(bearer_token)
 
 # add new rules

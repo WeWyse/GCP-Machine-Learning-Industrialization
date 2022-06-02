@@ -9,7 +9,7 @@ on:
     branches: 
     - 'main'
     - 'add_use_case'
-    - - 'Use_case_1'
+    - 'Use_case_1'
 
 jobs:
 

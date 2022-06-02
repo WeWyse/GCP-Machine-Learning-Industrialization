@@ -65,4 +65,4 @@ printer = TweetPrinterV2(bearer_token)
 # add new rules
 rule = StreamRule(value="#macron")
 printer.add_rules(rule)
-printer.filter(expansions=["author_id"], tweet_fields=["creae d_at","eni ties","lang"])
+printer.filter(expansions=["author_id"], tweet_fields=["created_at", "entities", "lang"])

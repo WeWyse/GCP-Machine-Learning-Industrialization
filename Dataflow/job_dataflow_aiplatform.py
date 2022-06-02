@@ -13,13 +13,13 @@ from googleapiclient import discovery
 
 cmle_api = None
 PROJECT_ID = 'sound-splicer-351114'
-STAGING_LOCATION = 'gs://twitter-listener/staging'
-TEMP_LOCATION = 'gs://twitter-listener/temp'
+STAGING_LOCATION = 'gs://twitter-listener-aiplatform/staging'
+TEMP_LOCATION = 'gs://twitter-listener-aiplatform/temp'
+SUBSCRIPTION = 'twitter_topic-sub'
 REGION = 'europe-west9'
 TABLE = 'twitter_posts'
 DATASET = 'TWITTER'
-MODEL_NAME = 'tweet_sentiment_classifier_1'
-SUBSCRIPTION = 'twitter_topic-sub'
+MODEL_NAME = 'tweet_sentiment_classifier'
 
 
 def init_api():
@@ -41,7 +41,7 @@ def estimate_cmle(instances):
     request_data = {'instances': instances}
     logging.info("making request to the ML api")
     # Call the model
-    model_url = 'projects/%s/models/%s' % (PROJECT_ID, MODEL_NAME)
+    model_url = 'projects/{}/models/{}'.format(PROJECT_ID, MODEL_NAME)
     response = cmle_api.projects().predict(body=request_data, name=model_url).execute()
     # Read out the scores
     values = [item["score"] for item in response['predictions']]
@@ -77,7 +77,7 @@ class MyOptions(PipelineOptions):
             '--input_subscription',
             help=('Input PubSub subscription of the form '
                   '"projects/<PROJECT>/subscriptions/<SUBSCRIPTION>."'),
-            default="projects/%s/subscriptions/%s" % (PROJECT_ID, SUBSCRIPTION)
+            default="projects/{}/subscriptions/{}".format(PROJECT_ID, SUBSCRIPTION)
         )
 
 

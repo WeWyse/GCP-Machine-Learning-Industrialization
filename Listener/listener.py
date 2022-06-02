@@ -1,6 +1,7 @@
 from tweepy import StreamingClient, StreamRule
 from google.cloud import pubsub_v1
 import tweepy
+import datetime
 import json
 import yaml
 
@@ -41,7 +42,7 @@ def reformat_tweet(tweet):
         "favorite_co": tweet["favorite_count"] if "favorite_count" in tweet else 0,
         "retweet_co": tweet["retweet_count"] if "retweet_count" in tweet else 0,
         "user_id": tweet['data']["author_id"],
-        "created": tweet["created_at"].strftme( "%m/%d/%Y, %H:%M:%S")
+        "created": tweet["created_at"].strftime( "%m/%d/%Y, %H:%M:%S")
     }
     if "extended_tweet" in tweet:
         processed_doc["text"] = tweet["extended_tweet"]["full_text"]
@@ -57,7 +58,7 @@ class TweetPrinterV2(tweepy.StreamingClient):
     def on_tweet(self, tweet):
         write_to_pubsub(reformat_tweet(tweet))
         print(reformat_tweet(tweet))
-        print("-"*50)
+        print ("- " *50)
 
 # Start listening
 printer = TweetPrinterV2(bearer_token)
@@ -65,5 +66,4 @@ printer = TweetPrinterV2(bearer_token)
 # add new rules
 rule = StreamRule(value="#macron")
 printer.add_rules(rule)
-
-printer.filter(expansions=["author_id"], tweet_fields=["created_at","entities","lang"])
+printer.filter(expansions=["author_id"], tweet_fields=["created_at", "entities", "lang"])

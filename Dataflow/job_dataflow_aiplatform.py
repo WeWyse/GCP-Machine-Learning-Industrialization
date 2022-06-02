@@ -18,7 +18,7 @@ TEMP_LOCATION = 'gs://twitter-listener/temp'
 REGION = 'europe-west9'
 TABLE = 'twitter_posts'
 DATASET = 'TWITTER'
-MODEL_NAME = 'tweet_sentiment_classifier_1'
+MODEL_NAME = 'tweet_sentiment_classifier'
 SUBSCRIPTION = 'twitter_topic-sub'
 
 

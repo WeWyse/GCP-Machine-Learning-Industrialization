@@ -4,15 +4,14 @@ import kfp
 client = kfp.Client(host='https://23598002678c20f-dot-europe-west1.pipelines.googleusercontent.com')# change
 
 def Preprocess_op():
-
     return dsl.ContainerOp(
         name='Preprocess Data ',
         image='abouzid/gcp-project-preprocess:latest',
         arguments=["--input-data-uri", "gs://rare-result-248415-tweet-sentiment-analysis/Data/sentiment_140/training_VA.csv"],
         file_outputs={'preprocessed-dir': '/Preprocess/preprocess-data-dir.txt'}
     )
-def Train_op(preprocess_data_dir : str):
 
+def Train_op(preprocess_data_dir : str):
     preprocess_data_dir
     return dsl.ContainerOp(
         name='Train Model ',
@@ -20,6 +19,7 @@ def Train_op(preprocess_data_dir : str):
         arguments=['--preprocess-data-dir', preprocess_data_dir],
         file_outputs={'model-dir': '/trainer/model-dir.txt'}
     )
+
 def Test_op(preprocess_data_dir : str , model_dir):
     return dsl.ContainerOp(
         name='Test Model ',
@@ -33,6 +33,7 @@ def Test_op(preprocess_data_dir : str , model_dir):
             'performance-file': '/test/performance-model.txt'
         }
     )
+
 @dsl.pipeline(
     name='Sentimental analyses Pipeline',
     description='An example pipeline.'

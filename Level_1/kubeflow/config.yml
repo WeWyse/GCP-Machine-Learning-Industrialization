@@ -1,0 +1,9 @@
+#!/usr/bin/env python
+project_id: 'sound-splicer-351114'
+client_host: 'https://4a48c7326b7bfa7e-dot-europe-west1.pipelines.googleusercontent.com'
+preprocess_image:
+train_image:
+test_image:
+
+
+

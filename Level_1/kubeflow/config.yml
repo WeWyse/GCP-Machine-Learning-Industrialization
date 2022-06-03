@@ -3,8 +3,8 @@ project_id: 'sound-splicer-351114'
 bucket: 'sound-splicer-351114-training-data'
 input-data-uri: 'gs://sound-splicer-351114-training-data/sentiment_140/Data_sentiment_140_training.csv'
 client_host: 'https://7b4c6ae7e41b8328-dot-europe-west1.pipelines.googleusercontent.com'
-preprocess_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/preprocess-image@sha256:be036c61058ef04f60d9706e7c5f9304189ce6026f8cfde1d5f6f523e24456c3'
-train_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/train-image@sha256:351580db63f55e4415a919a7116ff383090640c79aeffc9a75748a991444addd'
-test_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/test-image@sha256:1e10706949fcfd98b0ef9f374271a77e58e898fe417e9f5aa2d10f73ca078b2a'
+preprocess_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/preprocess-image@sha256:12f649eb19daf25f764a934a8048e2633a8c696bbdee880423f12ea5ba0b07fc'
+train_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/train-image@sha256:432e313060d8815e9ede10cf11782fcbcfbef4e6f9100549461b8485af0286b6'
+test_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/test-image@sha256:17ad7033000eba752257682fb402a8295c650c663a3ac0c045c59810314306a7'
 
 

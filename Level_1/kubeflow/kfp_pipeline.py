@@ -1,5 +1,5 @@
-from kfp import dsl
 import kfp
+from kfp import dsl
 import yaml
 
 

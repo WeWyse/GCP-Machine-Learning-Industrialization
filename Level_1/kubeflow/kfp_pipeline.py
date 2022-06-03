@@ -13,7 +13,6 @@ with open("config.yml", "r") as ymlfile:
 client = kfp.Client(host=CLIENT_HOST)
 
 def Preprocess_op():
-
     return dsl.ContainerOp(
         name='Preprocess Data ',
         image=PREPROCESS_IMAGE,
@@ -23,8 +22,6 @@ def Preprocess_op():
 
 
 def Train_op(preprocess_data_dir : str):
-
-    preprocess_data_dir
     return dsl.ContainerOp(
         name='Train Model ',
         image=TRAIN_IMAGE,

@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 project_id: 'sound-splicer-351114'
+bucket: '{project_id}-training-data'
+input-data-uri: "gs://{bucket}/sentiment_140/training_VA.csv"
 client_host:
 preprocess_image:
 train_image:
 test_image:
-
 
 

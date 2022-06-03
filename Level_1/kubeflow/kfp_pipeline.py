@@ -9,6 +9,7 @@ with open("config.yml", "r") as ymlfile:
     PREPROCESS_IMAGE = cfg['preprocess_image']
     TRAIN_IMAGE = cfg['train_image']
     TEST_IMAGE = cfg['test_image']
+    INPUT_DATA_URI = cfg['input-data-uri']
 
 client = kfp.Client(host=CLIENT_HOST)
 
@@ -16,7 +17,7 @@ def Preprocess_op():
     return dsl.ContainerOp(
         name='Preprocess Data ',
         image=PREPROCESS_IMAGE,
-        arguments=[],
+        arguments=["--input-data-uri", INPUT_DATA_URI],
         file_outputs={'preprocessed-dir': '/Preprocess/preprocess-data-dir.txt'}
     )
 

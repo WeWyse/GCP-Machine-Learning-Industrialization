@@ -1,7 +1,7 @@
 from kfp import dsl
 
 import kfp
-client = kfp.Client(host='https://23598002678c20f-dot-europe-west1.pipelines.googleusercontent.com')# change
+client = kfp.Client(host='https://1117fed2d4911d57-dot-europe-west1.pipelines.googleusercontent.com')# change
 
 def Preprocess_op():
 
@@ -37,15 +37,15 @@ def Test_op(preprocess_data_dir : str , model_dir):
     name='Sentimental analyses Pipeline',
     description='An example pipeline.'
 )
-def Twitter1_ML_Pipeline():
+def Use_case_train_VA():
     _preprocess_op = Preprocess_op()
     _train_op = Train_op(
         _preprocess_op.outputs['preprocessed-dir']
     ).after(_preprocess_op)
     _test_op = Test_op(_preprocess_op.outputs['preprocessed-dir'],_train_op.outputs['model-dir']
-    ).after(_train_op)
+                       ).after(_train_op)
     _preprocess_op.execution_options.caching_strategy.max_cache_staleness = "P0D"
     _test_op.execution_options.caching_strategy.max_cache_staleness = "P0D"
     _train_op.execution_options.caching_strategy.max_cache_staleness = "P0D"
 
-client.create_run_from_pipeline_func(Twitter1_ML_Pipeline, arguments={})
+client.create_run_from_pipeline_func(Use_case_train_VA, arguments={})

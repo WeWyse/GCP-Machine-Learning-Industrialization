@@ -1,6 +1,6 @@
 { "PROJECT_ID": "sound-splicer-351114",
   "bucket": "{PROJECT_ID}-training-data",
-  "input-data-uri": "gs://{bucket}/sentiment_140/training.csv",
+  "input-data-uri": "gs://{bucket}/sentiment_140/Data_sentiment_140_training.csv",
   "uri_data": "embeddings/glove.twitter.27B.50d.txt",
   "temp-dir": "embeddings/",
   "input-start-date" : "",

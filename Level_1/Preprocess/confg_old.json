@@ -1,0 +1,8 @@
+{"input-data-uri": "gs://rare-result-248415-tweet-sentiment-analysis/Data/sentiment_140/training.csv",
+  "uri_data": "Data/embeddings/glove.twitter.27B.50d.txt",
+  "bucket": "rare-result-248415-tweet-sentiment-analysis",
+  "temp-dir": "Data/embeddings/",
+  "input-start-date" : "",
+  "input-end-date" : "",
+  "model-dir" : "model/processor_state.pkl",
+  "preprocess-data-dir" : "gs://rare-result-248415-tweet-sentiment-analysis/Data/preprocess_data"}

@@ -1,5 +1,6 @@
-{"bucket": "rare-result-248415-tweet-sentiment-analysis",
-  "model-validation-dir" : "gs://rare-result-248415-tweet-sentiment-analysis/valid_model",
+{"PROJECT_ID": "sound-splicer-351114",
+  "bucket": "{PROJECT_ID}-training-data",
+  "model-validation-dir" : "gs://{bucket}/valid_model",
   "performance-threshold" :  {"acc":0.75,
                               "std": 0.3}
 }

@@ -1,8 +1,8 @@
 {"PROJECT_ID": "sound-splicer-351114",
-  "bucket": "{PROJECT_ID}-training-data",
+  "bucket": "sound-splicer-351114-training-data",
   "uri_data": "embeddings/glove.twitter.27B.50d.txt",
   "filters": 64,
   "dropout": 0.5,
   "n-checkpoints": 2,
   "batch-size": 128,
-  "model-dir" : "gs://{bucket}/model"}
+  "model-dir" : "gs://sound-splicer-351114-training-data/model"}

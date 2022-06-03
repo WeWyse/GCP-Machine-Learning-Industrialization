@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 project_id: 'sound-splicer-351114'
-bucket: '{project_id}-training-data'
-input-data-uri: 'gs://{bucket}/sentiment_140/Data_sentiment_140_training.csv'
+bucket: 'sound-splicer-351114-training-data'
+input-data-uri: 'gs://sound-splicer-351114-training-data/sentiment_140/Data_sentiment_140_training.csv'
 client_host: 'https://7b4c6ae7e41b8328-dot-europe-west1.pipelines.googleusercontent.com'
 preprocess_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/preprocess-image@sha256:be036c61058ef04f60d9706e7c5f9304189ce6026f8cfde1d5f6f523e24456c3'
 train_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/train-image@sha256:351580db63f55e4415a919a7116ff383090640c79aeffc9a75748a991444addd'

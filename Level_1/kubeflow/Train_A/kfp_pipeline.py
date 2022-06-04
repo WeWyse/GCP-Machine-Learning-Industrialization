@@ -2,7 +2,6 @@ import kfp
 from kfp import dsl
 import yaml
 
-
 with open("config.yml", "r") as ymlfile:
     cfg = yaml.load(ymlfile)
     PROJECT_ID = cfg['project_id']
@@ -11,10 +10,11 @@ with open("config.yml", "r") as ymlfile:
     TRAIN_IMAGE = cfg['train_image']
     TEST_IMAGE = cfg['test_image']
     INPUT_DATA_URI = cfg['input-data-uri']
-    TRAIN = cfg['train']
+    TRAIN = 'yes'
     MODEL_DIR_IF_NO_TRAIN = cfg['model-dir-if-no-train']
 
 client = kfp.Client(host=CLIENT_HOST)
+
 
 def Preprocess_op():
     return dsl.ContainerOp(
@@ -25,7 +25,7 @@ def Preprocess_op():
     )
 
 
-def Train_op(preprocess_data_dir : str):
+def Train_op(preprocess_data_dir: str):
     return dsl.ContainerOp(
         name='Train Model ',
         image=TRAIN_IMAGE,
@@ -34,7 +34,7 @@ def Train_op(preprocess_data_dir : str):
     )
 
 
-def Test_op(preprocess_data_dir : str , model_dir):
+def Test_op(preprocess_data_dir: str, model_dir):
     return dsl.ContainerOp(
         name='Test Model ',
         image=TEST_IMAGE,
@@ -56,7 +56,7 @@ def ML_Pipeline():
     # Preprocess step
     _preprocess_op = Preprocess_op()
     # Condition : we want to train a new model
-    with dsl.Condition(TRAIN):
+    with dsl.Condition(TRAIN == 'yes'):
         # Training step
         _train_op = Train_op(
             preprocess_data_dir=_preprocess_op.outputs['preprocessed-dir']
@@ -69,16 +69,17 @@ def ML_Pipeline():
         ).after(_train_op)
     # Condition : we don't want to train a new model,
     # but we just want to test an already trained model
-    with dsl.Condition(not TRAIN):
+    with dsl.Condition(TRAIN == 'No'):
         # Test step if there is no training step :
         # we test an already trained model from a specified directory
         _test_op = Test_op(
             preprocess_data_dir=_preprocess_op.outputs['preprocessed-dir'],
             model_dir=MODEL_DIR_IF_NO_TRAIN
-        ).after(_train_op)
-    #Options
+        ).after(_preprocess_op)
+    # Options
     _preprocess_op.execution_options.caching_strategy.max_cache_staleness = "P0D"
     _test_op.execution_options.caching_strategy.max_cache_staleness = "P0D"
     _train_op.execution_options.caching_strategy.max_cache_staleness = "P0D"
+
 
 client.create_run_from_pipeline_func(ML_Pipeline, arguments={})

@@ -53,7 +53,7 @@ def Test_op(preprocess_data_dir: str, model_dir):
     description='An example pipeline.'
 )
 def ML_Pipeline(
-        training: str = 'yes'
+        training: str = TRAIN
 ):
     # Preprocess step
     _preprocess_op = Preprocess_op()

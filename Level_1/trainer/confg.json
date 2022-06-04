@@ -3,7 +3,7 @@
   "uri_data": "embeddings/glove.twitter.27B.50d.txt",
   "filters": 64,
   "dropout": 0.5,
-  "n-checkpoints": 2,
+  "n-checkpoints": 3,
   "batch-size": 128,
   "model-dir" : "gs://sound-splicer-351114-training-data/model"}
 

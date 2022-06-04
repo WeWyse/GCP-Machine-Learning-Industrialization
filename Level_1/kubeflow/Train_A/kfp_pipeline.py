@@ -52,8 +52,9 @@ def Test_op(preprocess_data_dir: str, model_dir):
     name='Sentimental analyses Pipeline',
     description='An example pipeline.'
 )
-def ML_Pipeline():
-    training_condition: str = 'yes'
+def ML_Pipeline(
+        training_condition: str = 'yes'
+):
     # Preprocess step
     _preprocess_op = Preprocess_op()
     # Condition : we want to train a new model

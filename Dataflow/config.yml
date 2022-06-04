@@ -1,0 +1,8 @@
+project-id: 'sound-splicer-351114'
+staging-location: 'gs://sound-splicer-351114-twitter-listener/staging'
+temp-location: 'gs://sound-splicer-351114-twitter-listener/temp'
+region: 'europe-west9'
+table: 'twitter_posts'
+dataset: 'TWITTER'
+subscription: 'twitter_topic-sub'
+model_name: 'tweet_sentiment_classifier'

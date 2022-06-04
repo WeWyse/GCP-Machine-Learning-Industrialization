@@ -12,14 +12,16 @@ from apache_beam.transforms.util import BatchElements
 from googleapiclient import discovery
 
 cmle_api = None
-PROJECT_ID = 'sound-splicer-351114'
-STAGING_LOCATION = 'gs://twitter-listener/staging'
-TEMP_LOCATION = 'gs://twitter-listener/temp'
-REGION = 'europe-west9'
-TABLE = 'twitter_posts'
-DATASET = 'TWITTER'
-SUBSCRIPTION = 'twitter_topic-sub'
 
+with open("config.yml", "r") as ymlfile:
+    cfg = yaml.load(ymlfile)
+    PROJECT_ID = cfg['project_id']
+    STAGING_LOCATION = cfg['staging-location']
+    TEMP_LOCATION = cfg['temp-location']
+    REGION = cfg['region']
+    TABLE = cfg['table']
+    DATASET = cfg['dataset']
+    SUBSCRIPTION = cfg['subscription']
 
 def init_api():
     global cmle_api

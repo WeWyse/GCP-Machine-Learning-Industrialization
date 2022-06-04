@@ -14,7 +14,6 @@ from google.cloud.storage import Client
 CLASSES = {'negative': 0, 'positive': 1}  # label-to-int mapping
 VOCAB_SIZE = 25000  # Limit on the number vocabulary size used for tokenization
 MAX_SEQUENCE_LENGTH = 50  # Sentences will be truncated/padded to this length
-
 sentiment_mapping = {
     0: "negative",
     2: "neutral",

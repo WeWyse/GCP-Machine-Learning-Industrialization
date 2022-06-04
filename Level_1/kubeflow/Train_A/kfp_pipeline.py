@@ -53,10 +53,11 @@ def Test_op(preprocess_data_dir: str, model_dir):
     description='An example pipeline.'
 )
 def ML_Pipeline():
+    training_condition: str = 'yes'
     # Preprocess step
     _preprocess_op = Preprocess_op()
     # Condition : we want to train a new model
-    with dsl.Condition(TRAIN == 'yes'):
+    with dsl.Condition(training_condition == 'yes'):
         # Training step
         _train_op = Train_op(
             preprocess_data_dir=_preprocess_op.outputs['preprocessed-dir']
@@ -69,7 +70,7 @@ def ML_Pipeline():
         ).after(_train_op)
     # Condition : we don't want to train a new model,
     # but we just want to test an already trained model
-    with dsl.Condition(TRAIN == 'No'):
+    with dsl.Condition(training_condition == 'No'):
         # Test step if there is no training step :
         # we test an already trained model from a specified directory
         _test_op = Test_op(

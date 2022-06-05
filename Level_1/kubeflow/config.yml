@@ -4,7 +4,7 @@ bucket: 'sound-splicer-351114-machine-learning'
 input-data-uri: 'gs://sound-splicer-351114-machine-learning/raw-data/training_data.csv'
 client_host: 'https://7b4c6ae7e41b8328-dot-europe-west1.pipelines.googleusercontent.com'
 preprocess_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/preprocess-image@sha256:95580335ebcd570a2df30353423ff68ba2702ce5b013d0f3b8c12f8ddb9f039e'
-train_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/train-image@sha256:3a9df8916ef3cf605976c6e0c5ae23b269adcb2261d32813d1f994931b81a71f'
+train_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/train-image@sha256:95acff07b3b421574315a84c18b868cf34596c2c1a1b020f8c0cc2ab2d6c2a68'
 test_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/test-image@sha256:558ec7efdd948ebebd872e8a12f8989773ebc2e7e042b0908a611399900c9880'
 
 

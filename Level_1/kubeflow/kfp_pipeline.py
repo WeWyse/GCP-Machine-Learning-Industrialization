@@ -62,4 +62,4 @@ def Twitter1_ML_Pipeline():
     _test_op.execution_options.caching_strategy.max_cache_staleness = "P0D"
     _train_op.execution_options.caching_strategy.max_cache_staleness = "P0D"
 
-client.create_run_from_pipeline_func(Twitter1_ML_Pipeline, arguments={})
+client.create_run_from_pipeline_func(ML_Pipeline, arguments={})

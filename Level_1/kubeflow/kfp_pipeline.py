@@ -51,7 +51,7 @@ def Test_op(preprocess_data_dir : str , model_dir):
     name='Sentimental analyses Pipeline',
     description='An example pipeline.'
 )
-def Twitter1_ML_Pipeline():
+def ML_Pipeline():
     _preprocess_op = Preprocess_op()
     _train_op = Train_op(
         _preprocess_op.outputs['preprocessed-dir']

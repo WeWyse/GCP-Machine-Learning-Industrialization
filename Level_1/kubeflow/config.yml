@@ -3,8 +3,8 @@ project_id: 'sound-splicer-351114'
 bucket: 'sound-splicer-351114-machine-learning'
 input-data-uri: 'gs://sound-splicer-351114-machine-learning/raw-data/training_data.csv'
 client_host: 'https://7b4c6ae7e41b8328-dot-europe-west1.pipelines.googleusercontent.com'
-preprocess_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/preprocess-image@sha256:95580335ebcd570a2df30353423ff68ba2702ce5b013d0f3b8c12f8ddb9f039e'
-train_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/train-image@sha256:95acff07b3b421574315a84c18b868cf34596c2c1a1b020f8c0cc2ab2d6c2a68'
-test_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/test-image@sha256:558ec7efdd948ebebd872e8a12f8989773ebc2e7e042b0908a611399900c9880'
+preprocess_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/preprocess-image@sha256:1c3cc51f8249b502135349006ff2131e4e8a85b918d105f50e9544bbbd39bc27'
+train_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/train-image@sha256:a46193a75977cc9a659cc106ca7dda53089cb171da0085bc50500eff356af3f4'
+test_image: 'gcr.io/sound-splicer-351114/kubeflow-repo/test-image@sha256:d96777b053e23ae7e2375a3a83a1d8f73e3d8b1d12754966216cb1c1fb686e16'
 
 

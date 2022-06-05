@@ -34,7 +34,7 @@ def evaluate_model(hparams):
     y_test, x_test = read_test_data(hparams['preprocess-data-dir'])
     model = tf.keras.models.load_model(hparams['model-dir'], custom_objects={'tf': tf})
 
-    [loss, acc, confusion_matrix, std_prediction] = valid_model(model, y_test, x_test, hparams['performance-threshold'],hparams['model-validation-dir'])
+    [loss, acc, confusion_matrix, std_prediction] = valid_model(model, y_test, x_test, hparams['performance-threshold'], hparams['model-validation-dir'])
 
     ouputfile = open("performance-model.txt", "w")
     ouputfile.write(str("loss : " + str(loss) + "/n acc :" + str(acc) + "/n matrix-co :" + str(confusion_matrix)

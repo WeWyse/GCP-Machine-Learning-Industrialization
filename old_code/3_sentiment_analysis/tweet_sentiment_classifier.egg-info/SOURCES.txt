@@ -1,8 +1,0 @@
-model_prediction.py
-preprocess.py
-setup.py
-tweet_sentiment_classifier.egg-info/PKG-INFO
-tweet_sentiment_classifier.egg-info/SOURCES.txt
-tweet_sentiment_classifier.egg-info/dependency_links.txt
-tweet_sentiment_classifier.egg-info/top_level.txt
-tweet_sentiment_classifier.egg-info/.ipynb_checkpoints/top_level-checkpoint.txt

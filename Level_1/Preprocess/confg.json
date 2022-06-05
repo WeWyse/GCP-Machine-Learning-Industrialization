@@ -1,9 +1,9 @@
 { "PROJECT_ID": "sound-splicer-351114",
-  "bucket": "sound-splicer-351114-training-data",
-  "input-data-uri": "gs://sound-splicer-351114-training-data/sentiment_140/Data_sentiment_140_training.csv",
-  "uri_data": "embeddings/glove.twitter.27B.50d.txt",
-  "temp-dir": "embeddings/",
+  "bucket": "sound-splicer-351114-machine-learning",
+  "input-data-uri": "gs://sound-splicer-351114-machine-learning/raw-data/training_data.csv",
+  "uri_data": "raw-data/glove.twitter.27B.50d.txt",
+  "temp-dir": "raw-data/",
   "input-start-date" : "",
   "input-end-date" : "",
-  "model-dir" : "gs://sound-splicer-351114-training-data/model/processor_state.pkl",
-  "preprocess-data-dir" : "gs://sound-splicer-351114-training-data/preprocess_data"}
+  "model-dir" : "level-1-models/processor_state.pkl",
+  "preprocess-data-dir" : "gs://sound-splicer-351114-machine-learning/preprocess-data"}

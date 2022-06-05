@@ -5,5 +5,5 @@
   "dropout": 0.5,
   "n-checkpoints": 1,
   "batch-size": 128,
-  "model-dir" : "gs://sound-splicer-351114-machine-learning/level-1-models/models"}
+  "model-dir" : "gs://sound-splicer-351114-machine-learning/level-1-models/candidate_models"}
 

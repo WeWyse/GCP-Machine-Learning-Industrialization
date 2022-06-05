@@ -5,5 +5,5 @@
   "temp-dir": "raw-data/",
   "input-start-date" : "",
   "input-end-date" : "",
-  "model-dir" : "level-1-models/processor_state.pkl",
+  "model-dir" : "level-1-models/temp/processor_state.pkl",
   "preprocess-data-dir" : "gs://sound-splicer-351114-machine-learning/preprocess-data"}

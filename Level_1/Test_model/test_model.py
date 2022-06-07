@@ -5,6 +5,13 @@ import numpy as np
 
 
 def read_test_data(uri):
+    """Read test data from GCP URI
+    Args:
+      uri(String): GCP URI path to test data .
+    Returns:
+      y_test(pandas Dataframe): Test feature
+      x_test(pandas Dataframe): Test prediction variable
+    """
     y_test = pd.read_csv(uri + '/y_test.csv', encoding="latin1", header=None).to_numpy()
     x_test = pd.read_csv(uri + '/x_test.csv', encoding="latin1", header=None).to_numpy()
 
@@ -12,6 +19,16 @@ def read_test_data(uri):
 
 
 def valid_model(model, y_test, x_test, threshold , uri_save_model):
+    """Test  Model .
+    Args:
+      model(tf.model): tensorflow model.
+      y_test:Test feature
+      x_test: Test prediction variable
+      threshold: threshold for test metric
+      uri_save_model: Uri path to save model if verify threshold
+    Returns:
+         Test metric value
+    """
     [loss, acc] = model.evaluate(x_test, y_test)
     scores = model.predict(x_test)
     predictions = np.array([int(np.round(i)) for i in scores])

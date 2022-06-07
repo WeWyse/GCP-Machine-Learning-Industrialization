@@ -22,6 +22,15 @@ sentiment_mapping = {
 
 
 def read_data_uri(uri, start_date, end_date):
+    """
+        read Tweet data from Gcp URI
+         Args:
+            uri(String ): Uri to sentimental Data
+            Start_date(Sting): Start date of tweet to read
+            end_date(String) : End date of tweet to read
+        Returns:
+            data_input (Padnas Dataframe): Input Data .
+    """
     data_input = pd.read_csv(uri, encoding="latin1", header=None) \
         .rename(columns={
         0: "sentiment",
@@ -41,6 +50,15 @@ def read_data_uri(uri, start_date, end_date):
 
 
 def read_embbeded_data_uri(bucket, uri_data, temp, processor, EMBEDDING_DIM):
+    """
+       read_embedded_data_uri will read embedded data from Gcp URI
+        Args:
+           bucket(String ): GCP bucket
+           uri_data(Sting): Uri to Embedded Data
+           temp(String) : temporal repo
+       Returns:
+           embedding_matrix: embedded Data .
+   """
     client = Client()
     bucket = client.get_bucket(bucket)
     temp_folder = temp
@@ -65,6 +83,17 @@ def read_embbeded_data_uri(bucket, uri_data, temp, processor, EMBEDDING_DIM):
 
 
 def preprocess_input(input, bucket, uri_data):
+    """
+       preprocess_input will clean and tokenize input data
+        Args:
+           bucket(String ): GCP bucket
+           input(Sting): Input data to clean
+           uri_data(String) : path where to save data
+       Returns:
+           processor: preprocessor model .
+           train_texts_vectorized : Vectorized data feature
+           labels: cleaned Sentimental data
+   """
     sents = input.text
     labels = np.array(input.sentiment_label.map(CLASSES))
 
@@ -86,6 +115,9 @@ def preprocess_input(input, bucket, uri_data):
 
 
 def split_input(sents, labels, test_size=0.2):
+    """
+        Split Data to Train and test dataset
+    """
     # Train and test split
     X_train, X_test, y_train, y_test = train_test_split(sents, labels, test_size=test_size)
 

@@ -15,6 +15,11 @@ with open("config.yml", "r") as ymlfile:
 client = kfp.Client(host=CLIENT_HOST)
 
 def Preprocess_op():
+    """
+    Define the preprocessing component
+    Returns: to preprocessing component (dsl.ContainerOp)
+
+    """
     return dsl.ContainerOp(
         name='Preprocess Data ',
         image=PREPROCESS_IMAGE,
@@ -24,6 +29,11 @@ def Preprocess_op():
 
 
 def Train_op(preprocess_data_dir : str):
+    """
+    Define the Training component
+    Returns: the Training component (dsl.ContainerOp)
+
+    """
     return dsl.ContainerOp(
         name='Train Model ',
         image=TRAIN_IMAGE,
@@ -33,6 +43,11 @@ def Train_op(preprocess_data_dir : str):
 
 
 def Test_op(preprocess_data_dir : str , model_dir):
+    """
+    Define the Test component
+    Returns: the Test component (dsl.ContainerOp)
+
+    """
     return dsl.ContainerOp(
         name='Test Model ',
         image=TEST_IMAGE,
@@ -52,6 +67,9 @@ def Test_op(preprocess_data_dir : str , model_dir):
     description='An example pipeline.'
 )
 def ML_Pipeline():
+    """
+    Define the Kubeflow pipeline with the Processing step
+    """
     _preprocess_op = Preprocess_op()
     _train_op = Train_op(
         _preprocess_op.outputs['preprocessed-dir']

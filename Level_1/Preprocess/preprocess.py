@@ -5,6 +5,13 @@ import re
 
 class TextPreprocessor(object):
     def _clean_line(self, text):
+        """
+        _clean_line will clean the text by removing special caratere and web link, reformat the text ( lower case )
+         Args:
+            text(string ): string of the text to clean.
+        Returns:
+            text (String): cleaned text.
+        """
         text = re.sub(r"http\S+", "", text)
         text = re.sub(r"@[A-Za-z0-9]+", "", text)
         text = re.sub(r"#[A-Za-z0-9]+", "", text)
@@ -18,14 +25,26 @@ class TextPreprocessor(object):
         self._max_sequence_length = max_sequence_length
         self._tokenizer = None
 
-    def fit(self, text_list):        
+    def fit(self, text_list):
+        """
+        fit a tokenizer model of the class to list of string
+         Args:
+            text_list(List ): List of string to feed to the model.
+        """
         # Create vocabulary from input corpus.
         text_list_cleaned = [self._clean_line(txt) for txt in text_list]
         tokenizer = text.Tokenizer(num_words=self._vocab_size)
         tokenizer.fit_on_texts(text_list)
         self._tokenizer = tokenizer
 
-    def transform(self, text_list):        
+    def transform(self, text_list):
+        """
+               transform will clean and tokenize a list of text
+                Args:
+                   text_list(List ): List of string to transform
+               Returns:
+                   padded_text_sequence (List): transformed text.
+               """
         # Transform text to sequence of integers
         text_list = [self._clean_line(txt) for txt in text_list]
         text_sequence = self._tokenizer.texts_to_sequences(text_list)

@@ -2,6 +2,6 @@
   "uri_data": "Data/embeddings/glove.twitter.27B.50d.txt",
   "filters": 64,
   "dropout": 0.5,
-  "n-checkpoints": 1,
+  "n-checkpoints": 3,
   "batch-size": 128,
   "model-dir" : "gs://rare-result-248415-tweet-sentiment-analysis/model"}

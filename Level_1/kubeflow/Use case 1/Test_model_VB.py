@@ -6,7 +6,7 @@ def Preprocess_op():
     return dsl.ContainerOp(
         name='Preprocess Data ',
         image='abouzid/gcp-project-preprocess:latest',
-        arguments=["--input-data-uri", "gs://rare-result-248415-tweet-sentiment-analysis/Data/sentiment_140/training_VA.csv"],
+        arguments=["--input-data-uri", "gs://rare-result-248415-tweet-sentiment-analysis/Data/sentiment_140/training_VB.csv"],
         file_outputs={'preprocessed-dir': '/Preprocess/preprocess-data-dir.txt'}
     )
 def Test_op(preprocess_data_dir : str , model_dir):
@@ -27,7 +27,7 @@ def Test_op(preprocess_data_dir : str , model_dir):
 )
 def Use_case_test_VB():
     _preprocess_op = Preprocess_op()
-    _test_op = Test_op(_preprocess_op.outputs['preprocessed-dir'],"gs://rare-result-248415-tweet-sentiment-analysis/model/model-2022-06-02-14-35-13"
+    _test_op = Test_op(_preprocess_op.outputs['preprocessed-dir'],"gs://rare-result-248415-tweet-sentiment-analysis/model/model-2022-06-03-08-20-49"
                        ).after(_preprocess_op)
     _preprocess_op.execution_options.caching_strategy.max_cache_staleness = "P0D"
     _test_op.execution_options.caching_strategy.max_cache_staleness = "P0D"

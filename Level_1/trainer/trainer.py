@@ -17,6 +17,12 @@ MAX_SEQUENCE_LENGTH = 50  # Sentences will be truncated/padded to this length
 
 
 def read_preprocess_data(uri):
+    """Read input data and embedded .
+    Args:
+      uri(String): GCP Path to input and embedding_matrix.
+    Returns:
+      x_train, y_train, embedding_matrix(Pandas Data Frame): Training , test and embedded dataset.
+    """
     x_train = pd.read_csv(uri + '/x_train.csv', encoding="latin1", header=None)
     y_train = pd.read_csv(uri + '/y_train.csv', encoding="latin1", header=None).to_numpy()
     embedding_matrix = pd.read_csv(uri + '/embedding_matrix.csv', encoding="latin1", header=None).to_numpy()
@@ -25,6 +31,10 @@ def read_preprocess_data(uri):
 
 
 def split_input(sents, labels, test_size=0.1):
+    """
+        Split Data to Train and test dataset
+
+    """
     # Train and test split
     X_train, X_test, y_train, y_test = train_test_split(sents, labels, test_size=test_size)
 
@@ -34,6 +44,9 @@ def split_input(sents, labels, test_size=0.1):
 
 
 def create_model(vocab_size, embedding_dim, filters, kernel_sizes, dropout_rate, pool_size, embedding_matrix):
+    """
+        Create TensorFlow Keras CNN model
+    """
     # Input layer
     model_input = tf.keras.layers.Input(shape=(MAX_SEQUENCE_LENGTH,), dtype='int32')
 
@@ -73,7 +86,7 @@ def create_model(vocab_size, embedding_dim, filters, kernel_sizes, dropout_rate,
 
 
 def train_evaluate_explain_model(hparams):
-    """Train, evaluate, explain TensorFlow Keras DNN Regressor.
+    """Train, evaluate, explain TensorFlow Keras CNN model.
     Args:
       hparams(dict): A dictionary containing model training arguments.
     Returns:
